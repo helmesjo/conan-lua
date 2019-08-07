@@ -36,7 +36,7 @@ class LuaConan(ConanFile):
     def source(self):
         source_url = "https://www.lua.org"
         tools.get("{0}/ftp/lua-{1}.tar.gz".format(source_url, self.version), sha256="0c2eed3f960446e1a3e4b9a1ca2f3ff893b6ce41942cf54d5dd59ab4b3b058ac")
-        extracted_dir = self.name + "-" + self.version
+        extracted_dir = "lua-" + self.version
 
         # Rename to "source_subfolder" is a convention to simplify later steps
         os.rename(extracted_dir, self._source_subfolder)
@@ -55,8 +55,6 @@ class LuaConan(ConanFile):
         self.copy(pattern="LICENSE", dst="licenses", src=self._source_subfolder)
         cmake = self._configure_cmake()
         cmake.install()
-        #build_source_dir = os.path.join(self._build_subfolder, self._source_subfolder)
-        #self.copy(pattern="*/*.h", dst="include", src=build_source_dir, keep_path=False)
 
     def package_info(self):
         self.cpp_info.libs = tools.collect_libs(self)
