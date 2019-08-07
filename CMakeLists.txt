@@ -76,6 +76,11 @@ install(
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} # This is for Windows
 )
 install(
-	FILES lua.h lua.hpp lualib.h lauxlib.h luaconf.h
+	FILES 
+        "${INCLUDE_DIR}/lua.h"
+        "${INCLUDE_DIR}/lua.hpp"
+        "${INCLUDE_DIR}/lualib.h"
+        "${INCLUDE_DIR}/lauxlib.h"
+        "${INCLUDE_DIR}/luaconf.h"
 	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
 )
