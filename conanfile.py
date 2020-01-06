@@ -40,6 +40,12 @@ class LuaConan(ConanFile):
 
         # Rename to "source_subfolder" is a convention to simplify later steps
         os.rename(extracted_dir, self._source_subfolder)
+        
+        # For some reason uid & gid are wrong in some situations when renaming the unziped tar (happened in docker-in-docker configuration)
+        # Set it explicitly to match the current user & group
+        if os.name == "posix":
+            if os.system("chown -R {0}:{1} {2}".format(os.getuid(), os.getgid(), self._source_subfolder)) != 0:
+                self.output.error("Failed to change owner of source to current user & group id ({0}:{1})".format(os.getuid(), os.getgid()))
 
     def _configure_cmake(self):        
         cmake = CMake(self)
